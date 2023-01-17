@@ -1,0 +1,210 @@
+{
+	"info": {
+		"_postman_id": "5d289bcd-b5a6-4884-9cc0-42cec49982d3",
+		"name": "Colección para integración de Newman",
+		"description": "Envia cuatro peticiones a HTTPBin (httpbin.org) and prueba Newman",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Peticion GET",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5ad4c739-175a-4cf7-b422-3e8bf7ecea47",
+						"exec": [
+							"pm.test(\"Estado de respuesta es 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Respuesta contiene los parametros\", function () {",
+							"    let data = pm.response.json();",
+							"    pm.expect(data.args.pass).to.eql(\"true\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://httpbin.org/get?pass=true",
+					"protocol": "http",
+					"host": [
+						"httpbin",
+						"org"
+					],
+					"path": [
+						"get"
+					],
+					"query": [
+						{
+							"key": "pass",
+							"value": "true"
+						}
+					]
+				},
+				"description": "Simple request Get con un parametro en la URL"
+			},
+			"response": []
+		},
+		{
+			"name": "Peticion POST con body",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e52ef7c3-6084-4d6c-8143-2e059eed48ca",
+						"exec": [
+							"pm.test(\"Estado de respuesta es 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Verificar que el valor newman se muestre en la respuesta\", function () {",
+							"    let data = pm.response.json();",
+							"    pm.expect(data.json.ejecutando).to.eql(\"postman\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ejecutando\": \"postman\"\n}"
+				},
+				"url": {
+					"raw": "http://httpbin.org/post",
+					"protocol": "http",
+					"host": [
+						"httpbin",
+						"org"
+					],
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Peticion DELETE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "05ee76bc-33c1-4cbb-b46b-55e32da015da",
+						"exec": [
+							"pm.test(\"Estado de respuesta es 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://httpbin.org/delete",
+					"protocol": "http",
+					"host": [
+						"httpbin",
+						"org"
+					],
+					"path": [
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Peticon PUT con FORM DATA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c171b27f-a4ab-4fe1-9e33-483c5af986ad",
+						"exec": [
+							"pm.test(\"Estado de respuesta es 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Verificación de identificación\", function () {",
+							"    let data = pm.response.json();",
+							"    pm.expect(data.form.Identificacion).to.eql(\"02512245\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "Identificacion",
+							"value": "02512245",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://httpbin.org/put",
+					"protocol": "http",
+					"host": [
+						"httpbin",
+						"org"
+					],
+					"path": [
+						"put"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "a818bc91-0488-4f5c-9570-b7aa6547ea25",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "790e09fe-0d20-4eb8-a240-146a53c28bc4",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
